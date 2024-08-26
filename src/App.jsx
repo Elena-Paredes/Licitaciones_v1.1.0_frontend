@@ -12,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import $ from 'jquery';
 
-/* Creación de rutas para*/
+/* Creación de rutas*/
 function App() {
   return (
     <Router>

@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "start": "nodemon"
+    "start": "nodemon",
+    "build": "vite build"
   },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
