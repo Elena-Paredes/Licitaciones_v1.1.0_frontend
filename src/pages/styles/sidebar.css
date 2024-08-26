@@ -1,0 +1,104 @@
+
+/* /src/pages/styles/sidebar.css*/
+.sidebar-open .background-overlay {
+  visibility: visible;
+}
+
+.offcanvas {
+  width: 300px;
+  background: linear-gradient(to bottom right, #fff, #deddeca4);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.offcanvas-header {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px;
+}
+
+.offcanvas-body {
+  padding: 10px;
+  background: white;
+}
+
+.sidebar-header {
+  text-align: center;
+  padding: 20px;
+  margin-left: -5px;
+  border-radius: 10px;
+  background: white;
+  /*background: linear-gradient(to bottom right, #fff, #deddeca4);*/
+  
+}
+
+.user-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  border:3.0px solid #27306A;
+}
+
+.user-info {
+  color: #2c3e50;
+}
+
+.user-name {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.user-department {
+  display: block;
+  font-size: 1rem;
+  color: #888127;
+}
+
+.nav-section {
+  background-color: white;
+  width: 300px; /*Esto me rellena todo el recuadro*/
+  margin-left: -4px;
+  padding: 5px 20px;
+}
+
+.nav-section-title {
+  display: block;
+  font-size: 0.85rem;
+  color: #888127;
+  text-transform: uppercase;
+  background: white;
+
+}
+
+.nav-link {
+  background: white;
+  width: 300px;
+  margin-left: -10px;
+  color: #2c3e50;
+  display: center;
+  align-items: center;
+  /*padding: 10px 10px;*/
+}
+
+.nav-link:hover {
+  color: #888127;
+}
+
+.nav-link .fa {
+  margin-right: 10px;
+  color: #888127;
+  
+}
+
+/*Estilo del footer del sidebar*/
+.sidebar-footer {
+  text-align: center;
+  padding: 20px;
+  color: #2c3e50;
+  background: white;
+  
+}
+

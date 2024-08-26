@@ -1,0 +1,30 @@
+/* modal.css */
+/* Estilos específicos para los botones del modal */
+.modal-footer .btn-close {
+    background-color: #6c757d; /* Color gris */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .modal-footer .btn-close:hover {
+    background-color: #5a6268;
+  }
+  
+  .modal-footer .btn-save {
+    background-color: #007bff; /* Color azul */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .modal-footer .btn-save:hover {
+    background-color: #0056b3;
+  }
+  
+  
+  
