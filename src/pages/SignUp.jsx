@@ -19,7 +19,7 @@ const SignUp = () => {
 
   useEffect(() => {
     // Obtener los departamentos al montar el componente
-    axios.get('/api/departments')
+    api.get('/api/departments')
       .then(response => setDepartments(response.data))
       .catch(error => console.error('Error obteniendo departamentos:', error));
   }, []);
@@ -32,7 +32,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/signup', formData);
+      const response = await api.post('/api/signup', formData);
       console.log(response.data);
       // Limpiar el formulario después de un registro exitoso
       setFormData({
