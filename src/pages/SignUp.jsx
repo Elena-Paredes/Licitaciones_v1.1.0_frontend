@@ -1,7 +1,7 @@
 // src/pages/SignUp.jsx
 import React, { useState, useEffect } from 'react';
 import { FaUser, FaEnvelope, FaPhone, FaLock } from 'react-icons/fa';
-import axios from '../axiosConfig.js';
+import api from '../axiosConfig.js';
 import './styles/signup_signin.css'; 
 
 const SignUp = () => {
