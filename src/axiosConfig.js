@@ -1,10 +1,6 @@
 /* /frontend/src/axiosConfig.js */
 import axios from 'axios';
 
-const instance = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001', 
-  withCredentials: true
+const api = axios.create({
+  baseURL: "http://licitacionesv110background-production-be53.up.railway.app",
 });
-
-export default instance;
-
