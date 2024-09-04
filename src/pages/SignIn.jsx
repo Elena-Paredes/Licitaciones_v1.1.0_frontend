@@ -1,7 +1,7 @@
 // src/pages/SignIn.jsx
 import React, { useState } from 'react';
 import './styles/signup_signin.css';
-import axios from '../axiosConfig';
+import api from '../axiosConfig.js';
 import { useNavigate } from 'react-router-dom';
 import { FaUser, FaLock } from 'react-icons/fa';
 

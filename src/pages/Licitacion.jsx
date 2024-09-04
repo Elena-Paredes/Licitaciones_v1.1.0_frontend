@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane, faPlus, faDownload, faTrashCan, faPencil, faFileExcel, faCalendarDays, faUser, faClock, faTimes } from '@fortawesome/free-solid-svg-icons';
-import axios from '../axiosConfig';
+import api from '../axiosConfig.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './styles/principal.css';
