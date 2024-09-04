@@ -24,7 +24,7 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('/api/signin', formData)
+    api.post('/api/signin', formData)
       .then(response => {
         console.log('Data submitted:', JSON.stringify(response.data, null, 2));
         setResponse(response.data);
