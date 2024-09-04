@@ -24,19 +24,19 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    api.post('/api/signin', formData)
+    api.post('/api/signin', formData)  
       .then(response => {
         console.log('Data submitted:', JSON.stringify(response.data, null, 2));
         setResponse(response.data);
         if (response.data.message === 'Inicio de sesión exitoso') {
-          navigate('/principal'); // Redirigir a Principal.jsx después de un inicio de sesión exitoso
+          navigate('/principal'); 
         }
       })
       .catch(error => {
         console.error('Error submitting data:', error);
         setResponse({ message: 'Error iniciando sesión' });
       });
-  };
+};
 
   return (
     <div className="login-page">
