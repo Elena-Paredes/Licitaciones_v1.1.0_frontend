@@ -1,27 +1,30 @@
 // src/pages/SignUp.jsx
-import React, { useState, useEffect } from 'react';
-import { FaUser, FaEnvelope, FaPhone, FaLock } from 'react-icons/fa';
-import api from '../axiosConfig.js';
-import './styles/signup_signin.css'; 
+import React, { useState, useEffect } from "react";
+import { FaUser, FaEnvelope, FaPhone, FaLock } from "react-icons/fa";
+import api from "../axiosConfig.js";
+import "./styles/signup_signin.css";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    username: '',
-    email: '',
-    phone: '',
-    password: '',
-    department: '', // Añadido para el departamento
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: "",
+    phone: "",
+    password: "",
+    department: "", // Añadido para el departamento
   });
 
   const [departments, setDepartments] = useState([]);
 
   useEffect(() => {
     // Obtener los departamentos al montar el componente
-    api.get('/api/departments')
-      .then(response => setDepartments(response.data))
-      .catch(error => console.error('Error obteniendo departamentos:', error));
+    api
+      .get("/api/departments")
+      .then((response) => setDepartments(response.data))
+      .catch((error) =>
+        console.error("Error obteniendo departamentos:", error)
+      );
   }, []);
 
   const handleChange = (e) => {
@@ -32,20 +35,20 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/api/signup', formData);
+      const response = await api.post("/api/signup", formData);
       console.log(response.data);
       // Limpiar el formulario después de un registro exitoso
       setFormData({
-        firstName: '',
-        lastName: '',
-        username: '',
-        email: '',
-        phone: '',
-        password: '',
-        department: '',
+        firstName: "",
+        lastName: "",
+        username: "",
+        email: "",
+        phone: "",
+        password: "",
+        department: "",
       });
     } catch (error) {
-      console.error('Error registrando usuario:', error);
+      console.error("Error registrando usuario:", error);
     }
   };
 
@@ -125,8 +128,10 @@ const SignUp = () => {
                 onChange={handleChange}
                 required
               >
-                <option value="" disabled>Seleccione un departamento</option>
-                {departments.map(department => (
+                <option value="" disabled>
+                  Seleccione un departamento
+                </option>
+                {departments.map((department) => (
                   <option key={department.DeptoId} value={department.DeptoId}>
                     {department.deptoName}
                   </option>

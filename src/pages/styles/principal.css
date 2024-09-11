@@ -37,49 +37,45 @@ body {
 }
 
 .styled-card:hover {
-  transform: translateY(-10px); /* Efecto agrandarse al pasar el mouse */
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Colores específicos para cada tarjeta */
-.clientes {
-  background: linear-gradient(90deg, rgba(0,128,73,1) 0%);
-}
-
-.departamentos {
-  background: linear-gradient(90deg, rgba(255,127,0,1) 0%, rgba(255,69,0,1) 100%);
-}
-
-.especialidades {
-  background: linear-gradient(90deg, rgba(148,0,211,1) 0%, rgba(75,0,130,1) 100%);
-}
-
-.inventario {
-  background: linear-gradient(90deg, rgba(0,0,128,1) 0%, rgb(0, 255, 64) 100%);
-}
-
-.styled-card-content {
-  position: relative;
-}
-
-.styled-card-title {
-  font-size: 2.2rem;
-  font-weight: bold;
-}
-
-.styled-card-text {
-  font-size: 1.25rem;
-}
-
-/* Estilo de las tarjetas pequeñas */
-.small-card {
-  flex: 1 1 calc(25% - 10px); /* Ajusta el tamaño de las tarjetas para que haya espacio entre ellas */
-  margin-bottom: 20px;
+/* Contenido de cada tarjeta */
+.card-content {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 150px;
-  text-decoration: none; /* Elimina el subrayado de los enlaces */
-  box-sizing: border-box; /* Asegura que el padding y borde no afecten al ancho de las tarjetas */
+}
+
+/* Icono de las tarjetas */
+.card-icon {
+  margin-bottom: 10px;
+  color: #26396a; /* Color azul oscuro para los íconos */
+}
+
+/* Valor destacado (texto grande) */
+.card-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #26396a; /* Color azul oscuro */
+  margin-bottom: 5px;
+}
+
+/* Descripción debajo del valor */
+.card-description {
+  font-size: 1rem;
+  color: #555; /* Color gris oscuro para la descripción */
+}
+
+/* Colores específicos para cada tarjeta (sin gradientes) */
+.clientes,
+.departamentos,
+.especialidades,
+.inventario,
+.informes {
+  background: #fff; /* Fondo blanco */
 }
 
 /* Asegura que las tarjetas sean del mismo tamaño y se ajusten a la pantalla */
@@ -90,10 +86,9 @@ body {
 }
 
 .card-deck .styled-card {
-  flex: 1 0 calc(25% - 20px); /* Ajusta el tamaño de las tarjetas para que haya espacio entre ellas */
+  flex: 1 0 calc(20% - 20px); /* Ajusta el tamaño de las tarjetas para que haya espacio entre ellas */
   margin: 10px;
 }
-
 /* Estilo de los separadores */
 .latest-projects {
   margin: 20px 0;
@@ -158,4 +153,42 @@ body {
 .overview-icon {
   color: #27306A;
   margin-bottom: 10px;
+}
+
+/*Sección de documentos*/
+.project-list {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.project-header,
+.project-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.project-column {
+  flex: 1;
+  text-align: left;
+  padding: 0 10px;
+}
+
+.project-icon {
+  width: 20px;
+  margin-right: 10px;
+}
+
+.member-icon {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.progress-bar {
+  background-color: #4caf50;
+  height: 8px;
+  border-radius: 4px;
 }

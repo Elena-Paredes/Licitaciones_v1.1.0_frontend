@@ -1,14 +1,14 @@
 // src/pages/SignIn.jsx
-import React, { useState } from 'react';
-import './styles/signup_signin.css';
-import api from '../axiosConfig.js';
-import { useNavigate } from 'react-router-dom';
-import { FaUser, FaLock } from 'react-icons/fa';
+import React, { useState } from "react";
+import "./styles/signup_signin.css";
+import api from "../axiosConfig.js";
+import { useNavigate } from "react-router-dom";
+import { FaUser, FaLock } from "react-icons/fa";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
 
   const [response, setResponse] = useState(null);
@@ -18,25 +18,26 @@ const SignIn = () => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    api.post('/api/signin', formData)  
-      .then(response => {
-        console.log('Data submitted:', JSON.stringify(response.data, null, 2));
+    api
+      .post("/api/signin", formData)
+      .then((response) => {
+        console.log("Data submitted:", JSON.stringify(response.data, null, 2));
         setResponse(response.data);
-        if (response.data.message === 'Inicio de sesión exitoso') {
-          navigate('/principal'); 
+        if (response.data.message === "Inicio de sesión exitoso") {
+          navigate("/principal", { state: { user: response.data.user } }); // Pasamos el usuario a través de navigate
         }
       })
-      .catch(error => {
-        console.error('Error submitting data:', error);
-        setResponse({ message: 'Error iniciando sesión' });
+      .catch((error) => {
+        console.error("Error submitting data:", error);
+        setResponse({ message: "Error iniciando sesión" });
       });
-};
+  };
 
   return (
     <div className="login-page">
@@ -74,7 +75,9 @@ const SignIn = () => {
           {response && (
             <div className="response">
               <h3>{response.message}</h3>
-              {response.user && <pre>{JSON.stringify(response.user, null, 2)}</pre>}
+              {response.user && (
+                <pre>{JSON.stringify(response.user, null, 2)}</pre>
+              )}
             </div>
           )}
         </div>

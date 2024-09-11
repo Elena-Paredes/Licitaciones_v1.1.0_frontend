@@ -1,22 +1,59 @@
-// src/pages/components/Navbar.jsx
-import React, { useState } from 'react';
-import '../../pages/styles/navbar.css';
-import '../../pages/styles/sidebar.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBarsStaggered, faHouse, faCartShopping, faBell, faTools, faUsers, faCreditCard, faShieldAlt, faUser, faFlag } from '@fortawesome/free-solid-svg-icons';
+// src/components/Navbar.jsx
+import React, { useState, useEffect, useRef } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBarsStaggered,
+  faHouse,
+  faCartShopping,
+  faBell,
+  faCalendarDays,
+} from "@fortawesome/free-solid-svg-icons";
+import Sidebar from "./Sidebar"; // Importamos el nuevo componente Sidebar
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "../../pages/styles/navbar.css";
 
-const Navbar = ({ toggleSidebar }) => {
+const Navbar = ({ user }) => {
   const [isOffcanvasOpen, setIsOffcanvasOpen] = useState(false);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false); // Estado para controlar la apertura del calendario
+  const [startDate, setStartDate] = useState(new Date()); // Estado del calendario
+  const calendarRef = useRef(null); // Referencia para detectar clics fuera del calendario
+
+  useEffect(() => {
+    // Manejo del clic fuera del calendario para cerrarlo
+    const handleClickOutside = (event) => {
+      if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+        setIsCalendarOpen(false); // Cerrar el calendario si se hace clic fuera
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [calendarRef]);
+
+  useEffect(() => {
+    console.log("Usuario recibido en Navbar:", user); // Verificamos que el usuario llega
+  }, [user]);
 
   const toggleOffcanvas = () => {
     setIsOffcanvasOpen(!isOffcanvasOpen);
-    toggleSidebar(!isOffcanvasOpen);
+  };
+
+  const toggleCalendar = () => {
+    setIsCalendarOpen(!isCalendarOpen);
   };
 
   return (
     <nav className="navbar navbar-dark bg-dark fixed-top navbar-background">
       <div className="background-overlay"></div>
-      <div className={`container-fluid d-flex align-items-center ${isOffcanvasOpen ? 'navbar-reduced' : ''}`}>
+      <div
+        className={`container-fluid d-flex align-items-center ${
+          isOffcanvasOpen ? "navbar-reduced" : ""
+        }`}
+      >
         <button
           className="navbar-toggler"
           type="button"
@@ -24,125 +61,135 @@ const Navbar = ({ toggleSidebar }) => {
           aria-controls="offcanvasDarkNavbar"
           aria-label="Toggle navigation"
         >
-          <FontAwesomeIcon icon={faBarsStaggered} style={{color: "#888127",}} />
+          <FontAwesomeIcon
+            icon={faBarsStaggered}
+            style={{ color: "#888127" }}
+          />
         </button>
 
         <div className="navbar-icons ms-auto">
+          {/* Home Icon */}
           <button className="btn btn-link d-flex align-items-center">
             <FontAwesomeIcon icon={faHouse} />
           </button>
 
+          {/* Cart Dropdown */}
           <div className="btn-group">
-            <button className="btn btn-link d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+            <button
+              className="btn btn-link d-flex align-items-center"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               <FontAwesomeIcon icon={faCartShopping} />
             </button>
             <ul className="dropdown-menu dropdown-menu-end">
-              <li><a className="dropdown-item" href="#">Opción 1</a></li>
-              <li><a className="dropdown-item" href="#">Opción 2</a></li>
-              <li><a className="dropdown-item" href="#">Opción 3</a></li>
+              <li>
+                <a className="dropdown-item" href="#">
+                  Opción 1
+                </a>
+              </li>
+              <li>
+                <a className="dropdown-item" href="#">
+                  Opción 2
+                </a>
+              </li>
+              <li>
+                <a className="dropdown-item" href="#">
+                  Opción 3
+                </a>
+              </li>
             </ul>
           </div>
 
+          {/* Bell/Notifications Dropdown */}
           <div className="btn-group">
-            <button className="btn btn-link d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+            <button
+              className="btn btn-link d-flex align-items-center"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               <FontAwesomeIcon icon={faBell} />
             </button>
             <ul className="dropdown-menu dropdown-menu-end">
-              <li><a className="dropdown-item" href="#">Mensaje 1</a></li>
-              <li><a className="dropdown-item" href="#">Mensaje 2</a></li>
-              <li><a className="dropdown-item" href="#">Mensaje 3</a></li>
+              <li>
+                <a className="dropdown-item" href="#">
+                  Mensaje 1
+                </a>
+              </li>
+              <li>
+                <a className="dropdown-item" href="#">
+                  Mensaje 2
+                </a>
+              </li>
+              <li>
+                <a className="dropdown-item" href="#">
+                  Mensaje 3
+                </a>
+              </li>
             </ul>
           </div>
+
+          {/* Calendar Dropdown */}
           <div className="btn-group">
-            <button className="btn btn-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+            <button
+              className="btn btn-link d-flex align-items-center"
+              onClick={toggleCalendar}
+              aria-expanded={isCalendarOpen}
+            >
+              <FontAwesomeIcon icon={faCalendarDays} />
+            </button>
+            {isCalendarOpen && (
+              <div ref={calendarRef} className="dropdown-menu show">
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  inline
+                />
+              </div>
+            )}
+          </div>
+
+          {/* User Avatar Dropdown */}
+          <div className="btn-group">
+            <button
+              className="btn btn-link dropdown-toggle d-flex align-items-center"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               <img
-                src="/Cartoon-kitten.png"
+                src="/Clientes.png"
                 className="rounded-circle"
-                height="22"
+                height="24"
                 alt="User Avatar"
                 loading="lazy"
               />
             </button>
             <ul className="dropdown-menu dropdown-menu-end">
-              <li><a className="dropdown-item" href="#">Mi perfil</a></li>
-              <li><a className="dropdown-item" href="#">Ajustes</a></li>
-              <li><a className="dropdown-item" href="#">Salir</a></li>
+              <li>
+                <a className="dropdown-item" href="#">
+                  Mi perfil
+                </a>
+              </li>
+              <li>
+                <a className="dropdown-item" href="#">
+                  Ajustes
+                </a>
+              </li>
+              <li>
+                <a className="dropdown-item" href="#">
+                  Salir
+                </a>
+              </li>
             </ul>
           </div>
         </div>
-        {/*AQUÍ EMPIEZA EL SIDEBAAAR*/}
-        <div
-          className={`offcanvas offcanvas-start text-bg-dark ${isOffcanvasOpen ? 'show' : ''}`}
-          tabIndex="-1"
-          id="offcanvasDarkNavbar"
-          aria-labelledby="offcanvasDarkNavbarLabel"
-          style={{ visibility: isOffcanvasOpen ? 'visible' : 'hidden', width: '300px' }}
-        >
-          <div className="offcanvas-header">
-            <button
-              type="button"
-              className="btn-close btn-close-white"
-              onClick={toggleOffcanvas}
-              aria-label="Close"
-            ></button>
-          </div>
-          <div className="offcanvas-body">
-            <div className="sidebar-header">
-              <img src="/Cartoon-kitten.png" className="rounded-circle user-avatar" alt="User Avatar" />
-              <div className="user-info">
-                <span className="user-name">Elena Paredes</span>
-                <span className="user-department">T.I.</span>
-              </div>
-            </div>
-            <ul className="navbar-nav">
-              <li className="nav-section">
-                <span className="nav-section-title">PROYECTOS</span>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <FontAwesomeIcon icon={faTools} /> Licitaciones
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <FontAwesomeIcon icon={faUsers} /> Contratos
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <FontAwesomeIcon icon={faUsers} /> Equipos
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <FontAwesomeIcon icon={faCreditCard} /> Pagos
-                </a>
-              </li>
 
-              <li className="nav-section">
-                <span className="nav-section-title">AJUSTES</span>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <FontAwesomeIcon icon={faShieldAlt} /> Security
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <FontAwesomeIcon icon={faUser} /> Profile
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <FontAwesomeIcon icon={faFlag} /> Notifications
-                </a>
-              </li>
-            </ul>
-            <div className="sidebar-footer">
-              <p>Haz iniciado sesión como: Administrador</p>
-            </div>
-          </div>
-        </div>
+        {/* SIDEBAR */}
+        <Sidebar
+          isOffcanvasOpen={isOffcanvasOpen}
+          toggleOffcanvas={toggleOffcanvas}
+          user={user}
+        />
       </div>
     </nav>
   );
