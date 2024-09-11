@@ -1,0 +1,56 @@
+.form-licit-container {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-licit-h2, .form-licit-h3 {
+    color: #FFFFFF;
+    background-color: #0b6e4f;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .form-licit-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 15px 0;
+  }
+  
+  .form-licit-label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .form-licit-input, .form-licit-select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .form-licit-submit-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #0b6e4f;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .form-licit-submit-btn:hover {
+    background-color: #085a3e;
+  }
+  

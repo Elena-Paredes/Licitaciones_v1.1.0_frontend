@@ -130,24 +130,24 @@ const Navbar = ({ user }) => {
           </div>
 
           {/* Calendar Dropdown */}
-          <div className="btn-group">
-            <button
-              className="btn btn-link d-flex align-items-center"
-              onClick={toggleCalendar}
-              aria-expanded={isCalendarOpen}
-            >
-              <FontAwesomeIcon icon={faCalendarDays} />
-            </button>
-            {isCalendarOpen && (
-              <div ref={calendarRef} className="dropdown-menu show">
-                <DatePicker
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
-                  inline
-                />
-              </div>
-            )}
-          </div>
+          <div className="btn-group position-relative">
+  <button
+    className="btn btn-link d-flex align-items-center"
+    onClick={toggleCalendar}
+    aria-expanded={isCalendarOpen}
+  >
+    <FontAwesomeIcon icon={faCalendarDays} />
+  </button>
+  {isCalendarOpen && (
+    <div ref={calendarRef} className="dropdown-menu calendar-dropdown show">
+      <DatePicker
+        selected={startDate}
+        onChange={(date) => setStartDate(date)}
+        inline
+      />
+    </div>
+  )}
+</div>
 
           {/* User Avatar Dropdown */}
           <div className="btn-group">

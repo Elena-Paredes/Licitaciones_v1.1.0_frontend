@@ -82,15 +82,20 @@
 
 /*Estilo del calendario*/
 .calendar-dropdown {
+  position: absolute;
+  top: 100%; /* Muestra el calendario justo debajo del botón */
+  left: -140%; /* Centra el calendario horizontalmente */
+  transform: translateX(-50%); /* Asegura el centrado exacto */
   width: auto;
   max-width: 320px;
   padding: 0;
   border: 1px solid #ddd;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-  z-index: 1000; /* Para asegurarnos de que esté en la parte superior */
+  z-index: 1000;
 }
 
 .calendar-dropdown .react-datepicker {
-  width: 100%; /* Asegura que el calendario ocupe todo el ancho */
+  width: 100%;
 }
+
 
