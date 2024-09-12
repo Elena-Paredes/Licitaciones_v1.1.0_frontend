@@ -1,64 +1,73 @@
 // /src/pages/principal.jsx
 import React, { useState } from "react";
 import Navbar from "./components/Navbar.jsx";
-import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
-import "./styles/principal.css";
+import { useLocation, useNavigate } from "react-router-dom"; // Agrega useNavigate aquí
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faCircleUser,faStarHalfStroke,faUsers,faVial,faArrowPointer,faBookOpen,faXRay,faHospital, faBuildingNgo, faDoorOpen, faPenToSquare} from "@fortawesome/free-solid-svg-icons";
+import { faStarHalfStroke, faUsers, faVial, faBookOpen, faXRay, faHospital, faBuildingNgo, faDoorOpen, faPenToSquare, faFileCircleExclamation, faStar, faFileContract, faEye } from "@fortawesome/free-solid-svg-icons";
+import "./styles/principal.css";
 
 const Principal = () => {
   const location = useLocation();
   const user = location.state?.user;
 
-  // Definimos el estado para controlar si la barra lateral está abierta o cerrada
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  
+  // Hook de navegación
+  const navigate = useNavigate();
 
   // Función para alternar la visibilidad de la barra lateral
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  // Funciones para navegar a las diferentes rutas
+  const goToLicitaciones = () => navigate('/licitaciones');
+  const goToLineasNegocios = () => navigate('/lineas-negocios');
+  const goToDependencias = () => navigate('/dependencias');
+  const goToEmpresas = () => navigate('/empresas');
+  const goToIncumplimientos = () => navigate('/incumplimientos');
+  const goToEstatus = () => navigate('/estatus');
+  const goToContrato = () => navigate('/detalles-contrato');
+
   return (
     <div className={`principal-wrapper ${isSidebarOpen ? "sidebar-open" : ""}`}>
-      <Navbar
-        user={user}
-        isSidebarOpen={isSidebarOpen}
-        toggleSidebar={toggleSidebar}
-      />
+      <Navbar user={user} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>
+      
       <main
-        className={`principal-content ${isSidebarOpen ? "main-reduced" : ""}`}
-      >
+        className={`principal-content ${isSidebarOpen ? "main-reduced" : ""}`}>
         <div className="styled-card">
           <div className="styled-card-content">
             <h2 className="styled-card-title">COMERLAT</h2>
             <p className="styled-card-text">¡Integrando Soluciones!</p>
           </div>
         </div>
+        <section className="latest-projects">
+          <h3 className="section-title">
+            <FontAwesomeIcon icon={faEye} /> Fases del proceso
+          </h3>
+        </section>
         <section className="dashboard-overview">
           <div className="overview-cards">
-            <div className="overview-card">
+            <button className="overview-card">
               <FontAwesomeIcon
                 icon={faDoorOpen}
                 size="2x"
-                className="overview-icon"
-              />
+                className="overview-icon"/>
               <div>
                 <h4>Visita</h4>
                 <p>Presentados</p>
               </div>
-            </div>
-            <div className="overview-card">
+            </button>
+            <button className="overview-card">
               <FontAwesomeIcon
                 icon={faUsers}
                 size="2x"
-                className="overview-icon"
-              />
+                className="overview-icon"/>
               <div>
                 <h4>Junta de Aclaraciones</h4>
               </div>
-            </div>
-            <div className="overview-card">
+            </button>
+            <button className="overview-card">
               <FontAwesomeIcon
                 icon={faStarHalfStroke}
                 size="2x"
@@ -67,8 +76,8 @@ const Principal = () => {
               <div>
                 <h4>Precalificación</h4>
               </div>
-            </div>
-            <div className="overview-card">
+            </button>
+            <button className="overview-card">
               <FontAwesomeIcon
                 icon={faVial}
                 size="2x"
@@ -77,8 +86,8 @@ const Principal = () => {
               <div>
                 <h4>Muestras</h4>
               </div>
-            </div>
-            <div className="overview-card">
+            </button>
+            <button className="overview-card">
               <FontAwesomeIcon
                 icon={faPenToSquare}
                 size="2x"
@@ -88,36 +97,32 @@ const Principal = () => {
                 <h4>P. y A. de Proposiciones</h4>
                 <p>Mensuales</p>
               </div>
-            </div>
+            </button>
           </div>
         </section>
         <section className="latest-projects">
           <h3 className="section-title">
-            <FontAwesomeIcon icon={faArrowPointer} /> Opciones
+            <FontAwesomeIcon icon={faEye} /> Categorías
           </h3>
         </section>
         <div className="card-deck">
-          <div className="styled-card clientes">
+          <button className="styled-card categorias" onClick={goToLicitaciones}>
             <div className="card-content">
-              <FontAwesomeIcon
-                icon={faBookOpen}
-                size="2x"
-                className="card-icon"
-              />
+              <FontAwesomeIcon icon={faBookOpen} size="2x" className="card-icon" />
               <h3 className="card-value">LICITACIONES</h3>
               <p className="card-description">Total Revenue (Jan - Apr 2019)</p>
             </div>
-          </div>
-          <div className="styled-card departamentos">
+        </button>
+          <button className="styled-card categorias" onClick={goToLineasNegocios}>
             <div className="card-content">
               <FontAwesomeIcon icon={faXRay} size="2x" className="card-icon" />
-              <h3 className="card-value">L. DE NEGOCIOS</h3>
+              <h3 className="card-value">LÍNEAS DE NEGOCIOS</h3>
               <p className="card-description">
                 Total Unique Visitors (Jan - Apr 2019)
               </p>
             </div>
-          </div>
-          <div className="styled-card especialidades">
+          </button>
+          <button className="styled-card categorias" onClick={goToDependencias}>
             <div className="card-content">
               <FontAwesomeIcon icon={faHospital} size="2x" className="card-icon" />
               <h3 className="card-value">DEPENDENCIAS</h3>
@@ -125,21 +130,48 @@ const Principal = () => {
                 Number of Transactions (Jan - Apr 2019)
               </p>
             </div>
-          </div>
-          <div className="styled-card inventario">
+          </button>
+          <button className="styled-card categorias" onClick={goToEmpresas}>
             <div className="card-content">
               <FontAwesomeIcon icon={faBuildingNgo} size="2x" className="card-icon" />
-              <h3 className="card-value">EMPRESA</h3>
+              <h3 className="card-value">EMPRESAS</h3>
               <p className="card-description">
                 Conversion Rate (Jan - Apr 2019)
               </p>
             </div>
-          </div>
+          </button>
+          <button className="styled-card categorias" onClick={goToIncumplimientos} >
+            <div className="card-content">
+              <FontAwesomeIcon icon={faFileCircleExclamation} size="2x" className="card-icon" />
+              <h3 className="card-value">INCUMPLIMIENTOS</h3>
+              <p className="card-description">
+                Conversion Rate (Jan - Apr 2019)
+              </p>
+            </div>
+          </button>
+          <button className="styled-card categorias" onClick={goToEstatus}>
+            <div className="card-content">
+              <FontAwesomeIcon icon={faStar} size="2x" className="card-icon" />
+              <h3 className="card-value">PARTICIPACIÓN & CONCURSO</h3>
+              <p className="card-description">
+                Conversion Rate (Jan - Apr 2019)
+              </p>
+            </div>
+          </button>
+          <button className="styled-card categorias" onClick={goToContrato}>
+            <div className="card-content">
+              <FontAwesomeIcon icon={faFileContract} size="2x" className="card-icon" />
+              <h3 className="card-value">DETALLES DE CONTRATO</h3>
+              <p className="card-description">
+                Conversion Rate (Jan - Apr 2019)
+              </p>
+            </div>
+          </button>
         </div>
 
         <section className="latest-projects">
           <h3 className="section-title">
-            <FontAwesomeIcon icon={faArrowPointer} /> Documentos
+            <FontAwesomeIcon icon={faEye} /> Documentos
           </h3>
         </section>
         <div className="project-list">
@@ -199,7 +231,7 @@ const Principal = () => {
         </div>
         <section className="latest-projects">
           <h3 className="section-title">
-            <FontAwesomeIcon icon={faArrowPointer} /> Estadísticas
+            <FontAwesomeIcon icon={faEye} /> Estadísticas
           </h3>
         </section>
       </main>

@@ -36,7 +36,6 @@ body {
   opacity: 0.9;  
 }
 
-/* Contenido de cada tarjeta */
 .card-content {
   display: flex;
   flex-direction: column;
@@ -45,51 +44,68 @@ body {
   
 }
 
-.clientes:hover, .departamentos:hover, .especialidades:hover,.inventario:hover {
+.card-icon {
+  margin-bottom: 10px;
+  color: #26396a; 
+}
+
+.card-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #26396a; 
+  margin-bottom: 5px;
+}
+
+.card-description {
+  font-size: 1rem;
+  color: #555; 
+}
+
+/*******************************************************************************/
+/* Colores específicos para cada tarjeta */
+.categorias{
+  background: #fff; /* Fondo blanco */
+}
+
+.categorias:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Icono de las tarjetas */
-.card-icon {
-  margin-bottom: 10px;
-  color: #26396a; /* Color azul oscuro para los íconos */
-}
-
-/* Valor destacado (texto grande) */
-.card-value {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #26396a; /* Color azul oscuro */
-  margin-bottom: 5px;
-}
-
-/* Descripción debajo del valor */
-.card-description {
-  font-size: 1rem;
-  color: #555; /* Color gris oscuro para la descripción */
-}
-
-/* Colores específicos para cada tarjeta (sin gradientes) */
-.clientes,
-.departamentos,
-.especialidades,
-.inventario,
-.informes {
-  background: #fff; /* Fondo blanco */
-}
-
-/* Asegura que las tarjetas sean del mismo tamaño y se ajusten a la pantalla */
 .card-deck {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start; /* Cambiado a flex-start para alinear hacia la izquierda */
 }
 
 .card-deck .styled-card {
-  flex: 1 0 calc(20% - 20px); /* Ajusta el tamaño de las tarjetas para que haya espacio entre ellas */
+  flex: 1 0 calc(25% - 20px); /* Ajusta para tener 4 tarjetas por fila */
   margin: 10px;
+  max-width: calc(25% - 20px); 
 }
+
+@media (max-width: 1200px) {
+  .card-deck .styled-card {
+    flex: 1 0 calc(33.33% - 20px); /* 3 tarjetas por fila */
+    max-width: calc(33.33% - 20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .card-deck .styled-card {
+    flex: 1 0 calc(50% - 20px); /* 2 tarjetas por fila */
+    max-width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .card-deck .styled-card {
+    flex: 1 0 100%; /* 1 tarjeta por fila */
+    max-width: 100%;
+  }
+}
+
+
 /* Estilo de los separadores */
 .latest-projects {
   margin: 20px 0;

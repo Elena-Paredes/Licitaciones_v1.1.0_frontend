@@ -1,17 +1,12 @@
 // src/components/Navbar.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBarsStaggered,
-  faHouse,
-  faCartShopping,
-  faBell,
-  faCalendarDays,
-} from "@fortawesome/free-solid-svg-icons";
+import {faBarsStaggered,faHouse,faCartShopping,faBell,faCalendarDays,} from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "./Sidebar"; // Importamos el nuevo componente Sidebar
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../pages/styles/navbar.css";
+
 
 const Navbar = ({ user }) => {
   const [isOffcanvasOpen, setIsOffcanvasOpen] = useState(false);
@@ -73,7 +68,6 @@ const Navbar = ({ user }) => {
             <FontAwesomeIcon icon={faHouse} />
           </button>
 
-          {/* Cart Dropdown */}
           <div className="btn-group">
             <button
               className="btn btn-link d-flex align-items-center"
