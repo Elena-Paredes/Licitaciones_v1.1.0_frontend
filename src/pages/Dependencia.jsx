@@ -1,8 +1,7 @@
-// /src/pages/Licitacion.jsx
 import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faPaperPlane,faPlus,faTrashCan,faPencil,faFileExcel,faCalendarDays,faUser,faClock,faTimes} from "@fortawesome/free-solid-svg-icons";
+import {faPaperPlane,faPlus,faTrashCan,faPencil,faFileExcel,faTimes, faDoorOpen} from "@fortawesome/free-solid-svg-icons";
 import api from "../axiosConfig.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -10,12 +9,12 @@ import "./styles/principal.css";
 import "./styles/table.css";
 import "./styles/modal.css";
 
-const Licitacion = () => {
+const Dependencia = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchAttribute, setSearchAttribute] = useState("tenderName");
+  const [searchAttribute, setSearchAttribute] = useState("dependenciaName");
   const [currentPage, setCurrentPage] = useState(1);
-  const [licitaciones, setLicitaciones] = useState([]);
+  const [dependencias, setDependencias] = useState([]);
   const [error, setError] = useState(null);
   const [modalShow, setModalShow] = useState(false);
   const [modalContent, setModalContent] = useState("");
@@ -24,10 +23,10 @@ const Licitacion = () => {
 
   useEffect(() => {
     api
-      .get("/licitaciones")
-      .then((response) => setLicitaciones(response.data))
+      .get("/dependencias") // Cambia la ruta según tu backend
+      .then((response) => setDependencias(response.data))
       .catch((error) => {
-        console.error("Error obteniendo licitaciones:", error);
+        console.error("Error obteniendo dependencias:", error);
         setError(error);
       });
   }, []);
@@ -36,11 +35,11 @@ const Licitacion = () => {
     setIsSidebarOpen(isOpen);
   };
 
-  const filteredLicitaciones = licitaciones.filter((licitacion) =>
-    licitacion[searchAttribute].toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredDependencias = dependencias.filter((dependencia) =>
+    dependencia[searchAttribute]?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const totalPages = Math.ceil(filteredLicitaciones.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredDependencias.length / itemsPerPage);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -59,10 +58,10 @@ const Licitacion = () => {
 
   const handleClearSearch = () => {
     setSearchTerm("");
-    setSearchAttribute("tenderName");
+    setSearchAttribute("dependenciaName");
   };
 
-  const displayedLicitaciones = filteredLicitaciones.slice(
+  const displayedDependencias = filteredDependencias.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -85,7 +84,7 @@ const Licitacion = () => {
       >
         <div className="styled-card">
           <div className="styled-card-content">
-            <h2 className="styled-card-title">Licitaciones</h2>
+            <h2 className="styled-card-title">Dependencias</h2>
           </div>
         </div>
 
@@ -96,19 +95,15 @@ const Licitacion = () => {
         </section>
 
         <section className="licitaciones-section">
-          <h3 className="section-title">Licitaciones Vigentes</h3>
+          <h3 className="section-title">Dependencias Registradas</h3>
           <div className="table-controls">
             <select
               value={searchAttribute}
               onChange={handleAttributeChange}
               className="attribute-dropdown"
             >
-              <option value="tenderName">N° Licitación</option>
-              <option value="purpose">Objeto</option>
-              <option value="buName">Linea de Negocio</option>
-              <option value="tenderTypeName">Tipo de Licitación</option>
-              <option value="procedureTypeName">Tipo de Procedimiento</option>
-              {/* Agrega más opciones según los atributos de tus datos */}
+              <option value="dependenciaName">Dependencia</option>
+              <option value="state">Estado</option>
             </select>
             <input
               type="text"
@@ -140,52 +135,19 @@ const Licitacion = () => {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>N° Licitación</th>
-                  <th>Objeto</th>
-                  <th>Linea de Negocio</th>
-                  <th>Tipo de Licitación</th>
-                  <th>Tipo de Procedimiento</th>
-                  <th>Cliente</th>
-                  <th>Fechas</th>
-                  <th>Vigencia</th>
-                  <th>Estatus</th>
+                  <th>Número</th>
+                  <th>Dependencia</th>
+                  <th>Estado</th>
                   <th>Opciones</th>
                 </tr>
               </thead>
               <tbody>
-                {displayedLicitaciones.map((licitacion, index) => (
+                {displayedDependencias.map((dependencia, index) => (
                   <tr key={index}>
-                    <td>{licitacion.tenderId}</td>
-                    <td>{licitacion.tenderName}</td>
-                    <td>{licitacion.purpose}</td>
-                    <td>{licitacion.buName}</td>
-                    <td>{licitacion.tenderTypeName}</td>
-                    <td>{licitacion.procedureTypeName}</td>
-                    <td className="icon-cell">
-                      <button
-                        className="btn btn-dark-blue"
-                        onClick={() => handleModalOpen("Cliente")}
-                      >
-                        <FontAwesomeIcon icon={faUser} />
-                      </button>
-                    </td>
-                    <td className="icon-cell">
-                      <button
-                        className="btn btn-dark-blue"
-                        onClick={() => handleModalOpen("Fechas")}
-                      >
-                        <FontAwesomeIcon icon={faCalendarDays} />
-                      </button>
-                    </td>
-                    <td className="icon-cell">
-                      <button
-                        className="btn btn-dark-green"
-                        onClick={() => handleModalOpen("Vigencia")}
-                      >
-                        <FontAwesomeIcon icon={faClock} />
-                      </button>
-                    </td>
-                    <td></td>
+                    <td>{dependencia.id}</td>
+                    <td>{dependencia.number}</td>
+                    <td>{dependencia.dependenciaName}</td>
+                    <td>{dependencia.state}</td>
                     <td className="options-column">
                       <button className="btn btn-red">
                         <FontAwesomeIcon icon={faTrashCan} />
@@ -207,8 +169,7 @@ const Licitacion = () => {
               <button
                 key={index}
                 onClick={() => handlePageChange(index + 1)}
-                className={currentPage === index + 1 ? "active" : ""}
-              >
+                className={currentPage === index + 1 ? "active" : ""}>
                 {index + 1}
               </button>
             ))}
@@ -253,4 +214,4 @@ const Licitacion = () => {
   );
 };
 
-export default Licitacion;
+export default Dependencia;

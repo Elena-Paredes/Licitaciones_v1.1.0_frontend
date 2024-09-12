@@ -36,17 +36,18 @@ body {
   opacity: 0.9;  
 }
 
-.styled-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
 /* Contenido de cada tarjeta */
 .card-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
+}
+
+.clientes:hover, .departamentos:hover, .especialidades:hover,.inventario:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Icono de las tarjetas */
@@ -145,13 +146,13 @@ body {
   padding: 20px;
   margin: 10px;
   flex: 1;
-  max-width: 200px;
+  max-width: 250px;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .overview-icon {
-  color: #27306A;
+  color: #888127;
   margin-bottom: 10px;
 }
 

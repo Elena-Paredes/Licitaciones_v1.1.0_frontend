@@ -1,8 +1,15 @@
-// /src/pages/Licitacion.jsx
 import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faPaperPlane,faPlus,faTrashCan,faPencil,faFileExcel,faCalendarDays,faUser,faClock,faTimes} from "@fortawesome/free-solid-svg-icons";
+import {
+  faPaperPlane,
+  faPlus,
+  faDownload,
+  faTrashCan,
+  faPencil,
+  faFileExcel,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 import api from "../axiosConfig.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -10,12 +17,12 @@ import "./styles/principal.css";
 import "./styles/table.css";
 import "./styles/modal.css";
 
-const Licitacion = () => {
+const Empresa = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchAttribute, setSearchAttribute] = useState("tenderName");
+  const [searchAttribute, setSearchAttribute] = useState("empresa");
   const [currentPage, setCurrentPage] = useState(1);
-  const [licitaciones, setLicitaciones] = useState([]);
+  const [empresas, setEmpresas] = useState([]);
   const [error, setError] = useState(null);
   const [modalShow, setModalShow] = useState(false);
   const [modalContent, setModalContent] = useState("");
@@ -24,10 +31,10 @@ const Licitacion = () => {
 
   useEffect(() => {
     api
-      .get("/licitaciones")
-      .then((response) => setLicitaciones(response.data))
+      .get("/empresas") // Cambia la ruta según tu backend
+      .then((response) => setEmpresas(response.data))
       .catch((error) => {
-        console.error("Error obteniendo licitaciones:", error);
+        console.error("Error obteniendo empresas:", error);
         setError(error);
       });
   }, []);
@@ -36,11 +43,11 @@ const Licitacion = () => {
     setIsSidebarOpen(isOpen);
   };
 
-  const filteredLicitaciones = licitaciones.filter((licitacion) =>
-    licitacion[searchAttribute].toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredEmpresas = empresas.filter((empresa) =>
+    empresa[searchAttribute]?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const totalPages = Math.ceil(filteredLicitaciones.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredEmpresas.length / itemsPerPage);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -59,10 +66,10 @@ const Licitacion = () => {
 
   const handleClearSearch = () => {
     setSearchTerm("");
-    setSearchAttribute("tenderName");
+    setSearchAttribute("empresa");
   };
 
-  const displayedLicitaciones = filteredLicitaciones.slice(
+  const displayedEmpresas = filteredEmpresas.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -85,7 +92,7 @@ const Licitacion = () => {
       >
         <div className="styled-card">
           <div className="styled-card-content">
-            <h2 className="styled-card-title">Licitaciones</h2>
+            <h2 className="styled-card-title">Empresas</h2>
           </div>
         </div>
 
@@ -96,19 +103,17 @@ const Licitacion = () => {
         </section>
 
         <section className="licitaciones-section">
-          <h3 className="section-title">Licitaciones Vigentes</h3>
+          <h3 className="section-title">Empresas Registradas</h3>
           <div className="table-controls">
             <select
               value={searchAttribute}
               onChange={handleAttributeChange}
               className="attribute-dropdown"
             >
-              <option value="tenderName">N° Licitación</option>
-              <option value="purpose">Objeto</option>
-              <option value="buName">Linea de Negocio</option>
-              <option value="tenderTypeName">Tipo de Licitación</option>
-              <option value="procedureTypeName">Tipo de Procedimiento</option>
-              {/* Agrega más opciones según los atributos de tus datos */}
+              <option value="empresa">Empresa</option>
+              <option value="criterio">Criterio</option>
+              <option value="publicacionBases">Publicación de bases</option>
+              <option value="compraBases">Compra de bases</option>
             </select>
             <input
               type="text"
@@ -140,52 +145,23 @@ const Licitacion = () => {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>N° Licitación</th>
-                  <th>Objeto</th>
-                  <th>Linea de Negocio</th>
-                  <th>Tipo de Licitación</th>
-                  <th>Tipo de Procedimiento</th>
-                  <th>Cliente</th>
-                  <th>Fechas</th>
-                  <th>Vigencia</th>
-                  <th>Estatus</th>
+                  <th>Número</th>
+                  <th>Empresa/s</th>
+                  <th>Criterio</th>
+                  <th>Publicación de bases</th>
+                  <th>Compra de bases</th>
                   <th>Opciones</th>
                 </tr>
               </thead>
               <tbody>
-                {displayedLicitaciones.map((licitacion, index) => (
+                {displayedEmpresas.map((empresa, index) => (
                   <tr key={index}>
-                    <td>{licitacion.tenderId}</td>
-                    <td>{licitacion.tenderName}</td>
-                    <td>{licitacion.purpose}</td>
-                    <td>{licitacion.buName}</td>
-                    <td>{licitacion.tenderTypeName}</td>
-                    <td>{licitacion.procedureTypeName}</td>
-                    <td className="icon-cell">
-                      <button
-                        className="btn btn-dark-blue"
-                        onClick={() => handleModalOpen("Cliente")}
-                      >
-                        <FontAwesomeIcon icon={faUser} />
-                      </button>
-                    </td>
-                    <td className="icon-cell">
-                      <button
-                        className="btn btn-dark-blue"
-                        onClick={() => handleModalOpen("Fechas")}
-                      >
-                        <FontAwesomeIcon icon={faCalendarDays} />
-                      </button>
-                    </td>
-                    <td className="icon-cell">
-                      <button
-                        className="btn btn-dark-green"
-                        onClick={() => handleModalOpen("Vigencia")}
-                      >
-                        <FontAwesomeIcon icon={faClock} />
-                      </button>
-                    </td>
-                    <td></td>
+                    <td>{empresa.id}</td>
+                    <td>{empresa.number}</td>
+                    <td>{empresa.empresa}</td>
+                    <td>{empresa.criterio}</td>
+                    <td>{empresa.publicacionBases}</td>
+                    <td>{empresa.compraBases}</td>
                     <td className="options-column">
                       <button className="btn btn-red">
                         <FontAwesomeIcon icon={faTrashCan} />
@@ -252,5 +228,4 @@ const Licitacion = () => {
     </div>
   );
 };
-
-export default Licitacion;
+export default Empresa;

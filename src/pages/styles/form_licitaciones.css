@@ -1,8 +1,21 @@
-.form-licit-container {
+/* Aplica el degradado al fondo de la página del formulario */
+.form-licit-page {
+    background: linear-gradient(90deg, #1e9c58, #1a7a9b);
+    min-height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; 
+    box-sizing: border-box;
+  }
+  
+  /* Fondo blanco para el formulario */
+  .form-licit-container {
     display: flex;
     flex-direction: column;
     width: 60%;
-    margin: 0 auto;
+    max-width: 800px; 
+    margin: 20px auto; 
     padding: 20px;
     background-color: white;
     border-radius: 10px;
@@ -10,8 +23,8 @@
   }
   
   .form-licit-h2, .form-licit-h3 {
-    color: #FFFFFF;
-    background-color: #0b6e4f;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5); /* Transparencia opcional para el título */
     padding: 10px;
     border-radius: 5px;
     text-align: center;

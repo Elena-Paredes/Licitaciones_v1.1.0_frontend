@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./styles/principal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faMugSaucer,faCircleUser,faProjectDiagram,faUsers,faFileInvoice,faRedo,faBookOpen,faXRay,faHospital, faBuildingNgo} from "@fortawesome/free-solid-svg-icons";
+import {faCircleUser,faStarHalfStroke,faUsers,faVial,faArrowPointer,faBookOpen,faXRay,faHospital, faBuildingNgo, faDoorOpen, faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 
 const Principal = () => {
   const location = useLocation();
@@ -39,12 +39,12 @@ const Principal = () => {
           <div className="overview-cards">
             <div className="overview-card">
               <FontAwesomeIcon
-                icon={faProjectDiagram}
+                icon={faDoorOpen}
                 size="2x"
                 className="overview-icon"
               />
               <div>
-                <h4>Proyectos</h4>
+                <h4>Visita</h4>
                 <p>Presentados</p>
               </div>
             </div>
@@ -60,32 +60,32 @@ const Principal = () => {
             </div>
             <div className="overview-card">
               <FontAwesomeIcon
-                icon={faFileInvoice}
+                icon={faStarHalfStroke}
                 size="2x"
                 className="overview-icon"
               />
               <div>
-                <h4>Contratos</h4>
+                <h4>Precalificación</h4>
               </div>
             </div>
             <div className="overview-card">
               <FontAwesomeIcon
-                icon={faRedo}
+                icon={faVial}
                 size="2x"
                 className="overview-icon"
               />
               <div>
-                <h4>Devoluciones</h4>
+                <h4>Muestras</h4>
               </div>
             </div>
             <div className="overview-card">
               <FontAwesomeIcon
-                icon={faMugSaucer}
+                icon={faPenToSquare}
                 size="2x"
                 className="overview-icon"
               />
               <div>
-                <h4>Informes</h4>
+                <h4>P. y A. de Proposiciones</h4>
                 <p>Mensuales</p>
               </div>
             </div>
@@ -93,7 +93,7 @@ const Principal = () => {
         </section>
         <section className="latest-projects">
           <h3 className="section-title">
-            <FontAwesomeIcon icon={faMugSaucer} /> Opciones
+            <FontAwesomeIcon icon={faArrowPointer} /> Opciones
           </h3>
         </section>
         <div className="card-deck">
@@ -139,7 +139,7 @@ const Principal = () => {
 
         <section className="latest-projects">
           <h3 className="section-title">
-            <FontAwesomeIcon icon={faCircleUser} /> Documentos
+            <FontAwesomeIcon icon={faArrowPointer} /> Documentos
           </h3>
         </section>
         <div className="project-list">
@@ -155,48 +155,41 @@ const Principal = () => {
               <img
                 src="/path-to-image/xd-logo.png"
                 alt="Material XD Version"
-                className="project-icon"
-              />
+                className="project-icon"/>
               Material XD Version
             </div>
             <div className="project-column">
               <img
                 src="/path-to-image/user1.png"
                 alt="User 1"
-                className="member-icon"
-              />
+                className="member-icon"/>
               <img
                 src="/path-to-image/user2.png"
                 alt="User 2"
-                className="member-icon"
-              />
+                className="member-icon"/>
               <img
                 src="/path-to-image/user3.png"
                 alt="User 3"
-                className="member-icon"
-              />
+                className="member-icon"/>
             </div>
             <div className="project-column">$14,000</div>
             <div className="project-column">
               <div className="progress-bar" style={{ width: "60%" }}></div> 60%
             </div>
           </div>
-
           <div className="project-row">
             <div className="project-column">
               <img
                 src="/path-to-image/google-logo.png"
                 alt="Add Progress Track"
-                className="project-icon"
-              />
+                className="project-icon"/>
               Add Progress Track
             </div>
             <div className="project-column">
               <img
                 src="/path-to-image/user1.png"
                 alt="User 1"
-                className="member-icon"
-              />
+                className="member-icon"/>
             </div>
             <div className="project-column">$3,000</div>
             <div className="project-column">
@@ -206,7 +199,7 @@ const Principal = () => {
         </div>
         <section className="latest-projects">
           <h3 className="section-title">
-            <FontAwesomeIcon icon={faCircleUser} /> Estadísticas
+            <FontAwesomeIcon icon={faArrowPointer} /> Estadísticas
           </h3>
         </section>
       </main>

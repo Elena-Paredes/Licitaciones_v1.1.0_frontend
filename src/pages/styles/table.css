@@ -126,14 +126,16 @@
   background-color: #007f67;
 }
 
-/* Iconos dentro de la tabla */
+/* Ajustes para evitar que los botones se salgan de la pantalla */
 .add-button {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-left: 69rem;
+  margin-left: auto; /* Elimina el margen fijo */
+  gap: 10px; /* Espacio entre los botones */
 }
 
+/* Tarjetas para los botones */
 .add-card {
   display: flex;
   flex-direction: column;
@@ -146,9 +148,10 @@
   background-color: #f5f5f5;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-bottom:-30px;
+  margin-bottom: -30px;
 }
 
+/* Cambia de color al hacer hover */
 .add-card:hover {
   background-color: #e0e0e0;
 }
