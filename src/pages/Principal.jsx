@@ -1,7 +1,7 @@
 // /src/pages/principal.jsx
 import React, { useState } from "react";
 import Navbar from "./components/Navbar.jsx";
-import { useLocation, useNavigate } from "react-router-dom"; // Agrega useNavigate aquí
+import { useLocation, useNavigate } from "react-router-dom"; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStarHalfStroke, faUsers, faVial, faBookOpen, faXRay, faHospital, faBuildingNgo, faDoorOpen, faPenToSquare, faFileCircleExclamation, faStar, faFileContract, faEye } from "@fortawesome/free-solid-svg-icons";
 import "./styles/principal.css";
@@ -11,8 +11,6 @@ const Principal = () => {
   const user = location.state?.user;
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
-  // Hook de navegación
   const navigate = useNavigate();
 
   // Función para alternar la visibilidad de la barra lateral
@@ -37,8 +35,8 @@ const Principal = () => {
         className={`principal-content ${isSidebarOpen ? "main-reduced" : ""}`}>
         <div className="styled-card">
           <div className="styled-card-content">
-            <h2 className="styled-card-title">COMERLAT</h2>
-            <p className="styled-card-text">¡Integrando Soluciones!</p>
+            <h1 className="styled-card-title">COMERLAT</h1>
+            <h4 className="styled-card-text">¡Integrando Soluciones!</h4>
           </div>
         </div>
         <section className="latest-projects">
@@ -116,7 +114,7 @@ const Principal = () => {
           <button className="styled-card categorias" onClick={goToLineasNegocios}>
             <div className="card-content">
               <FontAwesomeIcon icon={faXRay} size="2x" className="card-icon" />
-              <h3 className="card-value">LÍNEAS DE NEGOCIOS</h3>
+              <h3 className="card-value">LÍNEAS DE NEGOCIO</h3>
               <p className="card-description">
                 Total Unique Visitors (Jan - Apr 2019)
               </p>

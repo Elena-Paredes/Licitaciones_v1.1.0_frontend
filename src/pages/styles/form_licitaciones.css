@@ -1,4 +1,5 @@
-/* Aplica el degradado al fondo de la página del formulario */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
 .form-licit-page {
     background: linear-gradient(90deg, #1e9c58, #1a7a9b);
     min-height: 100vh; 
@@ -9,7 +10,6 @@
     box-sizing: border-box;
   }
   
-  /* Fondo blanco para el formulario */
   .form-licit-container {
     display: flex;
     flex-direction: column;
@@ -24,7 +24,7 @@
   
   .form-licit-h2, .form-licit-h3 {
     color: white;
-    background-color: rgba(0, 0, 0, 0.5); /* Transparencia opcional para el título */
+    background-color: #888127d3;
     padding: 10px;
     border-radius: 5px;
     text-align: center;
@@ -36,11 +36,22 @@
     gap: 15px;
     margin: 15px 0;
   }
+
+  .form-licit-textarea {
+    width: 100%; /* Ajusta el ancho al 100% del contenedor */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    resize: vertical; /* Permite que el usuario ajuste la altura del textarea */
+  }
   
   .form-licit-label {
+    font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
     display: block;
     font-weight: bold;
-    color: #333;
+    color: #161827;
   }
   
   .form-licit-input, .form-licit-select {
@@ -54,7 +65,7 @@
   .form-licit-submit-btn {
     width: 100%;
     padding: 10px;
-    background-color: #0b6e4f;
+    background-color: #888127;
     color: white;
     font-size: 16px;
     border: none;
