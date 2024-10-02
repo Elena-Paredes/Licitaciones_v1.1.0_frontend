@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faPaperPlane,faPlus,faTrashCan,faPencil,faFileExcel,faTimes,} from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane, faPlus, faTrashCan, faPencil, faFileExcel, faTimes } from "@fortawesome/free-solid-svg-icons";
 import api from "../axiosConfig.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -12,9 +12,9 @@ import "./styles/modal.css";
 const Estatus = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchAttribute, setSearchAttribute] = useState("id");
+  const [searchAttribute, setSearchAttribute] = useState("tenderNumber");
   const [currentPage, setCurrentPage] = useState(1);
-  const [estatusList, setEstatusList] = useState([]);
+  const [statuses, setStatuses] = useState([]);
   const [error, setError] = useState(null);
   const [modalShow, setModalShow] = useState(false);
   const [modalContent, setModalContent] = useState("");
@@ -24,7 +24,7 @@ const Estatus = () => {
   useEffect(() => {
     api
       .get("/estatus") // Cambia la ruta según tu backend
-      .then((response) => setEstatusList(response.data))
+      .then((response) => setStatuses(response.data))
       .catch((error) => {
         console.error("Error obteniendo estatus:", error);
         setError(error);
@@ -35,11 +35,11 @@ const Estatus = () => {
     setIsSidebarOpen(isOpen);
   };
 
-  const filteredEstatus = estatusList.filter((estatus) =>
-    estatus[searchAttribute]?.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredStatuses = statuses.filter((status) =>
+    status[searchAttribute]?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const totalPages = Math.ceil(filteredEstatus.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredStatuses.length / itemsPerPage);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -58,10 +58,10 @@ const Estatus = () => {
 
   const handleClearSearch = () => {
     setSearchTerm("");
-    setSearchAttribute("id");
+    setSearchAttribute("tenderNumber");
   };
 
-  const displayedEstatus = filteredEstatus.slice(
+  const displayedStatuses = filteredStatuses.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -79,9 +79,7 @@ const Estatus = () => {
   return (
     <div className={`principal-wrapper ${isSidebarOpen ? "sidebar-open" : ""}`}>
       <Navbar toggleSidebar={toggleSidebar} />
-      <main
-        className={`principal-content ${isSidebarOpen ? "main-reduced" : ""}`}
-      >
+      <main className={`principal-content ${isSidebarOpen ? "main-reduced" : ""}`}>
         <div className="styled-card">
           <div className="styled-card-content">
             <h2 className="styled-card-title">Estatus</h2>
@@ -94,21 +92,14 @@ const Estatus = () => {
           </h3>
         </section>
 
-        <section className="estatus-section">
-          <h3 className="section-title">Estatus Registrados</h3>
+        <section className="licitaciones-section">
+          <h3 className="section-title">Estatus de las licitaciones</h3>
           <div className="table-controls">
-            <select
-              value={searchAttribute}
-              onChange={handleAttributeChange}
-              className="attribute-dropdown"
-            >
-              <option value="id">ID</option>
-              <option value="numero">Número</option>
-              <option value="participacion">Participación</option>
-              <option value="concurso">Concurso</option>
-              <option value="resolucionFalloMotivoDeclinacion">
-                Resolución del Fallo o Motivo de Declinación
-              </option>
+            <select value={searchAttribute} onChange={handleAttributeChange} className="attribute-dropdown">
+              <option value="tenderNumber">Número</option>
+              <option value="participationStatusName">Estatus de Participación</option>
+              <option value="contestStatusName">Estatus del Concurso</option>
+              <option value="breachStatusName">Declinación</option>
             </select>
             <input
               type="text"
@@ -132,7 +123,7 @@ const Estatus = () => {
               </div>
             </div>
           </div>
-
+          
           {error && <p className="error-message">{error.message}</p>}
 
           <div className="table-responsive">
@@ -141,20 +132,20 @@ const Estatus = () => {
                 <tr>
                   <th>ID</th>
                   <th>Número</th>
-                  <th>Participación</th>
-                  <th>Concurso</th>
-                  <th>Resolución del Fallo o Motivo de Declinación</th>
+                  <th>Estatus de Participación</th>
+                  <th>Estatus del Concurso</th>
+                  <th>Declinación</th>
                   <th>Opciones</th>
                 </tr>
               </thead>
               <tbody>
-                {displayedEstatus.map((estatus, index) => (
+                {displayedStatuses.map((status, index) => (
                   <tr key={index}>
-                    <td>{estatus.id}</td>
-                    <td>{estatus.numero}</td>
-                    <td>{estatus.participacion}</td>
-                    <td>{estatus.concurso}</td>
-                    <td>{estatus.resolucionFalloMotivoDeclinacion}</td>
+                    <td>{status.tenderId}</td>
+                    <td>{status.tenderNumber}</td>
+                    <td>{status.participationStatusName}</td>
+                    <td>{status.contestStatusName}</td>
+                    <td>{status.breachStatusName}</td>
                     <td className="options-column">
                       <button className="btn btn-red">
                         <FontAwesomeIcon icon={faTrashCan} />
@@ -202,17 +193,11 @@ const Estatus = () => {
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                {modalTitle}
-              </h5>
+              <h5 className="modal-title" id="exampleModalLabel">{modalTitle}</h5>
             </div>
             <div className="modal-body">{modalContent}</div>
             <div className="modal-footer">
-              <button
-                type="button"
-                className="btn-close"
-                onClick={handleModalClose}
-              ></button>
+              <button type="button" className="btn-close" onClick={handleModalClose}></button>
             </div>
           </div>
         </div>
@@ -221,4 +206,5 @@ const Estatus = () => {
     </div>
   );
 };
+
 export default Estatus;

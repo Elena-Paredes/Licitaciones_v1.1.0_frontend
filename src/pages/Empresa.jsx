@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPaperPlane,
   faPlus,
-  faDownload,
   faTrashCan,
   faPencil,
   faFileExcel,
@@ -20,9 +19,9 @@ import "./styles/modal.css";
 const Empresa = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchAttribute, setSearchAttribute] = useState("empresa");
+  const [searchAttribute, setSearchAttribute] = useState("tenderNumber");
   const [currentPage, setCurrentPage] = useState(1);
-  const [empresas, setEmpresas] = useState([]);
+  const [tenders, setTenders] = useState([]);
   const [error, setError] = useState(null);
   const [modalShow, setModalShow] = useState(false);
   const [modalContent, setModalContent] = useState("");
@@ -31,8 +30,8 @@ const Empresa = () => {
 
   useEffect(() => {
     api
-      .get("/empresas") // Cambia la ruta según tu backend
-      .then((response) => setEmpresas(response.data))
+      .get("/tenders") // Cambia la ruta según tu backend
+      .then((response) => setTenders(response.data))
       .catch((error) => {
         console.error("Error obteniendo empresas:", error);
         setError(error);
@@ -43,11 +42,11 @@ const Empresa = () => {
     setIsSidebarOpen(isOpen);
   };
 
-  const filteredEmpresas = empresas.filter((empresa) =>
-    empresa[searchAttribute]?.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredTenders = tenders.filter((tender) =>
+    tender[searchAttribute]?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const totalPages = Math.ceil(filteredEmpresas.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredTenders.length / itemsPerPage);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -66,10 +65,10 @@ const Empresa = () => {
 
   const handleClearSearch = () => {
     setSearchTerm("");
-    setSearchAttribute("empresa");
+    setSearchAttribute("tenderNumber");
   };
 
-  const displayedEmpresas = filteredEmpresas.slice(
+  const displayedTenders = filteredTenders.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -110,10 +109,10 @@ const Empresa = () => {
               onChange={handleAttributeChange}
               className="attribute-dropdown"
             >
-              <option value="empresa">Empresa</option>
-              <option value="criterio">Criterio</option>
-              <option value="publicacionBases">Publicación de bases</option>
-              <option value="compraBases">Compra de bases</option>
+              <option value="tenderNumber">Número</option>
+              <option value="buName">L. de Negocio</option>
+              <option value="basePublicationDate">Publicación de bases</option>
+              <option value="basePurchaseDate">Compra de bases</option>
             </select>
             <input
               type="text"
@@ -146,22 +145,34 @@ const Empresa = () => {
                 <tr>
                   <th>ID</th>
                   <th>Número</th>
-                  <th>Empresa/s</th>
-                  <th>Criterio</th>
+                  <th>L. de Negocio</th>
+                  <th>Empresas</th>
+                  <th>Estatus</th>
+                  <th>Fechas</th>
                   <th>Publicación de bases</th>
                   <th>Compra de bases</th>
                   <th>Opciones</th>
                 </tr>
               </thead>
               <tbody>
-                {displayedEmpresas.map((empresa, index) => (
+                {displayedTenders.map((tender, index) => (
                   <tr key={index}>
-                    <td>{empresa.id}</td>
-                    <td>{empresa.number}</td>
-                    <td>{empresa.empresa}</td>
-                    <td>{empresa.criterio}</td>
-                    <td>{empresa.publicacionBases}</td>
-                    <td>{empresa.compraBases}</td>
+                    <td>{tender.tenderId}</td>
+                    <td>{tender.tenderNumber}</td>
+                    <td>{tender.buName}</td>
+                    <td>{/* Aquí va el campo de Empresas, ajusta cómo lo manejas */}</td>
+                    <td>
+                      <a href={tender.estatusUrl} target="_blank" rel="noopener noreferrer">
+                        Ver estatus
+                      </a>
+                    </td>
+                    <td>
+                      <a href={tender.fechasUrl} target="_blank" rel="noopener noreferrer">
+                        Ver fechas
+                      </a>
+                    </td>
+                    <td>{tender.basePublicationDate}</td>
+                    <td>{tender.basePurchaseDate}</td>
                     <td className="options-column">
                       <button className="btn btn-red">
                         <FontAwesomeIcon icon={faTrashCan} />

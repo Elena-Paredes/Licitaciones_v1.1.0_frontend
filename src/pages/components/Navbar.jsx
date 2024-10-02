@@ -3,16 +3,16 @@ import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBarsStaggered, faHouse, faCartShopping, faBell, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom"; // Importamos useNavigate
-import Sidebar from "./Sidebar"; 
+import Sidebar from "./Sidebar";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../pages/styles/navbar.css";
 
 const Navbar = ({ user }) => {
   const [isOffcanvasOpen, setIsOffcanvasOpen] = useState(false);
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
-  const [startDate, setStartDate] = useState(new Date()); 
-  const calendarRef = useRef(null); 
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const calendarRef = useRef(null);
   const navigate = useNavigate(); // Hook para navegación
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const Navbar = ({ user }) => {
   }, [calendarRef]);
 
   useEffect(() => {
-    console.log("Usuario recibido en Navbar:", user); 
+    console.log("Usuario recibido en Navbar:", user);
   }, [user]);
 
   const toggleOffcanvas = () => {
@@ -65,11 +65,11 @@ const Navbar = ({ user }) => {
           aria-label="Toggle navigation">
           <FontAwesomeIcon
             icon={faBarsStaggered}
-            style={{ color: "#888127" }}/>
+            style={{ color: "#888127" }} />
         </button>
         <div className="navbar-icons ms-auto">
           {/* Home Icon */}
-          <button 
+          <button
             className="btn btn-link d-flex align-items-center"
             onClick={goToPrincipal}>
             <FontAwesomeIcon icon={faHouse} />
@@ -132,7 +132,7 @@ const Navbar = ({ user }) => {
                 height="40"
                 width="40"
                 alt="User Avatar"
-                loading="lazy"/>
+                loading="lazy" />
             </button>
             <ul className="dropdown-menu dropdown-menu-end">
               <li>

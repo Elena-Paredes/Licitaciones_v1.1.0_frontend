@@ -1,8 +1,7 @@
-// src/pages/Especialidad.jsx
 import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faPaperPlane,faPlus,faTrashCan,faPencil,faFileExcel,faCalendarDays,faUser,faClock,faTimes} from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane, faPlus, faTrashCan, faPencil, faFileExcel, faTimes } from "@fortawesome/free-solid-svg-icons";
 import api from "../axiosConfig.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -10,12 +9,12 @@ import "./styles/principal.css";
 import "./styles/table.css";
 import "./styles/modal.css";
 
-const Especialidad = () => {
+const Caracteristica = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchAttribute, setSearchAttribute] = useState("businessUnitName");
+  const [searchAttribute, setSearchAttribute] = useState("tenderNumber");
   const [currentPage, setCurrentPage] = useState(1);
-  const [businessUnits, setBusinessUnits] = useState([]);
+  const [tenders, setTenders] = useState([]);
   const [error, setError] = useState(null);
   const [modalShow, setModalShow] = useState(false);
   const [modalContent, setModalContent] = useState("");
@@ -24,10 +23,10 @@ const Especialidad = () => {
 
   useEffect(() => {
     api
-      .get("/business-units") // Cambia la ruta según tu backend
-      .then((response) => setBusinessUnits(response.data))
+      .get("/tenders") // Cambia la ruta según tu backend
+      .then((response) => setTenders(response.data))
       .catch((error) => {
-        console.error("Error obteniendo lineas de negocio:", error);
+        console.error("Error obteniendo datos:", error);
         setError(error);
       });
   }, []);
@@ -36,11 +35,11 @@ const Especialidad = () => {
     setIsSidebarOpen(isOpen);
   };
 
-  const filteredBusinessUnits = businessUnits.filter((unit) =>
-    unit[searchAttribute]?.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredTenders = tenders.filter((tender) =>
+    tender[searchAttribute]?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const totalPages = Math.ceil(filteredBusinessUnits.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredTenders.length / itemsPerPage);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -59,10 +58,10 @@ const Especialidad = () => {
 
   const handleClearSearch = () => {
     setSearchTerm("");
-    setSearchAttribute("businessUnitName");
+    setSearchAttribute("tenderNumber");
   };
 
-  const displayedBusinessUnits = filteredBusinessUnits.slice(
+  const displayedTenders = filteredTenders.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -80,12 +79,10 @@ const Especialidad = () => {
   return (
     <div className={`principal-wrapper ${isSidebarOpen ? "sidebar-open" : ""}`}>
       <Navbar toggleSidebar={toggleSidebar} />
-      <main
-        className={`principal-content ${isSidebarOpen ? "main-reduced" : ""}`}
-      >
+      <main className={`principal-content ${isSidebarOpen ? "main-reduced" : ""}`}>
         <div className="styled-card">
           <div className="styled-card-content">
-            <h2 className="styled-card-title">Linea de Negocios</h2>
+            <h2 className="styled-card-title">Características</h2>
           </div>
         </div>
 
@@ -96,17 +93,14 @@ const Especialidad = () => {
         </section>
 
         <section className="licitaciones-section">
-          <h3 className="section-title">Lineas de Negocios</h3>
+          <h3 className="section-title">Características de Licitaciones</h3>
           <div className="table-controls">
-            <select
-              value={searchAttribute}
-              onChange={handleAttributeChange}
-              className="attribute-dropdown"
-            >
-              <option value="businessUnitName">L. de Negocios</option>
-              <option value="dependency">Dependencia</option>
-              <option value="contractType">Tipo de Contratación</option>
-              <option value="procedureType">Tipo de Procedimiento</option>
+            <select value={searchAttribute} onChange={handleAttributeChange} className="attribute-dropdown">
+              <option value="tenderNumber">Número</option>
+              <option value="contractTypeName">Contratación</option>
+              <option value="procedureTypeName">Procedimiento</option>
+              <option value="characterTypeName">Carácter</option>
+              <option value="mediumTypeName">Medio</option>
             </select>
             <input
               type="text"
@@ -138,21 +132,23 @@ const Especialidad = () => {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>L. de Negocios</th>
-                  <th>Dependencia</th>
-                  <th>Tipo de Contratación</th>
-                  <th>Tipo de Procedimiento</th>
+                  <th>Número</th>
+                  <th>Contratación</th>
+                  <th>Procedimiento</th>
+                  <th>Carácter</th>
+                  <th>Medio</th>
                   <th>Opciones</th>
                 </tr>
               </thead>
               <tbody>
-                {displayedBusinessUnits.map((unit, index) => (
+                {displayedTenders.map((tender, index) => (
                   <tr key={index}>
-                    <td>{unit.id}</td>
-                    <td>{unit.businessUnitName}</td>
-                    <td>{unit.dependency}</td>
-                    <td>{unit.contractType}</td>
-                    <td>{unit.procedureType}</td>
+                    <td>{tender.tenderId}</td>
+                    <td>{tender.tenderNumber}</td>
+                    <td>{tender.contractTypeName}</td>
+                    <td>{tender.procedureTypeName}</td>
+                    <td>{tender.characterTypeName}</td>
+                    <td>{tender.mediumTypeName}</td>
                     <td className="options-column">
                       <button className="btn btn-red">
                         <FontAwesomeIcon icon={faTrashCan} />
@@ -174,8 +170,7 @@ const Especialidad = () => {
               <button
                 key={index}
                 onClick={() => handlePageChange(index + 1)}
-                className={currentPage === index + 1 ? "active" : ""}
-              >
+                className={currentPage === index + 1 ? "active" : ""}>
                 {index + 1}
               </button>
             ))}
@@ -189,28 +184,15 @@ const Especialidad = () => {
       </footer>
 
       {/* Modal */}
-      <div
-        className={`modal fade ${modalShow ? "show" : ""}`}
-        tabIndex="-1"
-        role="dialog"
-        style={{ display: modalShow ? "block" : "none" }}
-        aria-labelledby="exampleModalLabel"
-        aria-hidden={!modalShow}
-      >
+      <div className={`modal fade ${modalShow ? "show" : ""}`} tabIndex="-1" role="dialog" style={{ display: modalShow ? "block" : "none" }} aria-labelledby="exampleModalLabel" aria-hidden={!modalShow}>
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                {modalTitle}
-              </h5>
+              <h5 className="modal-title" id="exampleModalLabel">{modalTitle}</h5>
             </div>
             <div className="modal-body">{modalContent}</div>
             <div className="modal-footer">
-              <button
-                type="button"
-                className="btn-close"
-                onClick={handleModalClose}
-              ></button>
+              <button type="button" className="btn-close" onClick={handleModalClose}></button>
             </div>
           </div>
         </div>
@@ -219,5 +201,6 @@ const Especialidad = () => {
     </div>
   );
 };
-export default Especialidad;
+
+export default Caracteristica;
 

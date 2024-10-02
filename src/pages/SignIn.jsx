@@ -40,44 +40,28 @@ const SignIn = () => {
   };
 
   return (
-    <div className="login-page">
-      <div className="login-container">
-        <div className="login-box">
-          <div className="login-logo">
-            <img src="/logo.png" alt="Logo" />
+    <div className='login-page'>
+      <div className='login-container'>
+        <div className='login-box'>
+          <div className='login-logo'>
+            <img src='/logo.png' alt='Logo' />
           </div>
           <h2>INICIAR SESIÓN</h2>
           <form onSubmit={handleSubmit}>
-            <div className="login-field">
-              <FaUser className="login-icon" />
-              <input
-                type="text"
-                name="username"
-                placeholder="Nombre de Usuario"
-                value={formData.username}
-                onChange={handleChange}
-                required
-              />
+            <div className='login-field'>
+              <FaUser className='login-icon' />
+              <input type='text' name='username' placeholder='Nombre de Usuario' value={formData.username} onChange={handleChange} required />
             </div>
-            <div className="login-field">
-              <FaLock className="login-icon" />
-              <input
-                type="password"
-                name="password"
-                placeholder="Contraseña"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
+            <div className='login-field'>
+              <FaLock className='login-icon' />
+              <input type='password' name='password' placeholder='Contraseña' value={formData.password} onChange={handleChange} required />
             </div>
-            <button type="submit">Iniciar Sesión</button>
+            <button type='submit'>Iniciar Sesión</button>
           </form>
           {response && (
-            <div className="response">
+            <div className='response'>
               <h3>{response.message}</h3>
-              {response.user && (
-                <pre>{JSON.stringify(response.user, null, 2)}</pre>
-              )}
+              {response.user && <pre>{JSON.stringify(response.user, null, 2)}</pre>}
             </div>
           )}
         </div>
